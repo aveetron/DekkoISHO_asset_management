@@ -1,1 +1,0 @@
-# DekkoISHO_asset_management

@@ -1,0 +1,36 @@
+{% load static %}
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">IT Department</div>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="fad fa-charging-station"></i></div>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="{% url 'company'%}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-air-freshener"></i></div>
+                        Company
+                    </a>
+                    <a class="nav-link" href="{% url 'department'%}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Department
+                    </a>
+                    <a class="nav-link" href="{% url 'supplier'%}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-oil-temp"></i></div>
+                        Supplier
+                    </a>
+                    <a class="nav-link" href="{% url 'deviceType'%}">
+                        <div class="sb-nav-link-icon"><i class="fal fa-car-building"></i></div>
+                        Device Type
+                    </a>
+                    <a class="nav-link" href="{% url 'allocateDevice'%}">
+                        <div class="sb-nav-link-icon"><i class="fal fa-car-building"></i></div>
+                        Allocate Device To Employee
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                Start Bootstrap
+            </div>
+        </nav>

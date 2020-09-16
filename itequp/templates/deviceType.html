@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block main %}
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        {% include 'side.html' %}
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Device Type</h1>
+                
+                
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        <button class="btn btn-info" data-target="#supplierModal" data-toggle="modal">Add Device Type</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr align="center">
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {% for deviceType in allDeviceType %}
+                                        <tr align="center">
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{deviceType.name}}</td>
+                                            <td><button class="btn btn-warning">Edit</button></td>
+                                        </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+ <div class="modal fade" id="supplierModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add Item</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form  method="post" action="{% url 'addDeviceType' %}">
+                        {% csrf_token %}
+                            <div class="form-sample">
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="name" required="required"
+                                                    class="form-control " placeholder="Name"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button type="submit" class="btn btn-success mr-2 col-md-4">Submit</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}

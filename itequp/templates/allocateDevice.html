@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% block main %}
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        {% include 'side.html' %}
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Device Allocation</h1>
+                
+                
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        <button class="btn btn-info" data-target="#supplierModal" data-toggle="modal">Allocate Device to Employee</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr align="center">
+                                        <th>No</th>
+                                        <th>Employee</th>
+                                        <th>Device Type</th>
+                                        <th>Description</th>
+                                        <th>QTY</th>
+                                        <th>Purchase date</th>
+                                        <th>Assigned date</th>
+                                        <th>Supplier</th>
+                                        <th>serial number</th>
+                                        <th>remarks</th>
+                                        <th>Edit</th>
+                                        
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {% for device in allDeviceAllocate %}
+                                        <tr align="center">
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{device.employee.name}}-{{device.employee.employee_id}}-{{device.employee.company.short_name}}-{{device.employee.department}}</td>
+                                            <td>{{device.device_type}}</td>
+                                            <td>{{device.description}}</td>
+                                            <td>{{device.qty}}</td>
+                                            <td>{{device.purchase_date}}</td>
+                                            <td>{{device.assign_date}}</td>
+                                            <td>{{device.supplier}}</td>
+                                            <td>{{device.serial_number}}</td>
+                                            <td>{{device.remarks}}</td>
+                                            <td><button class="btn btn-primary">Edit</button></td>
+                                        </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+ <div class="modal fade" id="supplierModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add Item</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form  method="post" action="{% url 'addAllocationDevice' %}">
+                        {% csrf_token %}
+                            <div class="form-sample">
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Employee</label>
+                                        <div class="col-sm-9">
+                                            
+                                            <select name="employee" required="required" class="form-control">
+                                                <option value="">Select Employee</option>
+                                                {% for employee in allEmployee %}
+                                                    <option value="{{employee.id}}">{{employee.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Device Type</label>
+                                        <div class="col-sm-9">
+                                            <select name="device_type" required="required" class="form-control">
+                                                <option value="">Select Device Type</option>
+                                                {% for deviceType in allDeviceType %}
+                                                    <option value="{{deviceType.id}}">{{deviceType.name}}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Model</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="model" required="required"
+                                                    class="form-control " placeholder="Model"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Description</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="description" required="required"
+                                                    class="form-control " placeholder="Description"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">QTY</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" name="qty" required="required"
+                                                    class="form-control " placeholder="qty"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Purchase Date</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" name="purchase_date" required="required"
+                                                    class="form-control " />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Assign date</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" name="assign_date" required="required"
+                                                    class="form-control " />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Supplier</label>
+                                        <div class="col-sm-9">
+                                            <select name="supplier" required="required" class="form-control">
+                                                <option value="">Select Supplier</option>
+                                                {% for supplier in allSupplier %}
+                                                    <option value="{{supplier.id}}">{{supplier.name}}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Serial Number</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="serial_number" required="required"
+                                                    class="form-control " placeholder="Name"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Remarks</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="remarks" required="required"
+                                                    class="form-control " placeholder="remarks"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button type="submit" class="btn btn-success mr-2 col-md-4">Submit</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}
